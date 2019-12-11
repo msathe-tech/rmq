@@ -20,7 +20,7 @@ public class MessagePublisher {
 	@GetMapping("/{message}")
 	public String sendMessage(@PathVariable String message) {
 		System.out.println("Sending: " + message);
-		MessageChannel output = source.textIn();
+		MessageChannel output = source.textOut();
 		try {
 			output.send(new GenericMessage<String>(message));
 		} catch (Exception e) {
@@ -32,12 +32,11 @@ public class MessagePublisher {
 
 }
 
-@Component
 interface TextSource {
 
 	public String TEXT_OUT = "text";
 
 	@Output("text")
-	MessageChannel textIn();
+	MessageChannel textOut();
 }
 
